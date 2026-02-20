@@ -16,7 +16,6 @@ A full-stack emotional counseling web application with AI-powered analysis and p
 ### AI Service
 - Python FastAPI
 - Emotional analysis engine
-- Deployed on Railway
 
 ## Project Structure
 
@@ -43,4 +42,5 @@ See individual service README files for detailed setup instructions:
 - Emotional dashboard with analytics
 - Secure REST API
 - Privacy-first data handling
+
 
