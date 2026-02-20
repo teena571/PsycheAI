@@ -1,0 +1,63 @@
+// Prisma Schema for MongoDB
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  name      String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  sessions    Session[]
+  messages    Message[]
+  emotionLogs EmotionLog[]
+  
+  @@map("users")
+}
+
+model Session {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String    @db.ObjectId
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  startedAt DateTime  @default(now())
+  endedAt   DateTime?
+  
+  messages Message[]
+  
+  @@map("sessions")
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String   @db.ObjectId
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String   // 'user' or 'assistant'
+  content   String
+  emotion   String?
+  sentiment Float?
+  createdAt DateTime @default(now())
+  
+  @@map("messages")
+}
+
+model EmotionLog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  emotion   String
+  intensity Float
+  context   String?
+  createdAt DateTime @default(now())
+  
+  @@map("emotion_logs")
+}
