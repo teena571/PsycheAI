@@ -8,12 +8,10 @@ A full-stack emotional counseling web application with AI-powered analysis and p
 - React + Vite
 - Tailwind CSS
 - Framer Motion
-- Deployed on Vercel
 
 ### Backend
 - Node.js + Express
 - PostgreSQL (Supabase)
-- Deployed on Render
 
 ### AI Service
 - Python FastAPI
@@ -45,3 +43,4 @@ See individual service README files for detailed setup instructions:
 - Emotional dashboard with analytics
 - Secure REST API
 - Privacy-first data handling
+
